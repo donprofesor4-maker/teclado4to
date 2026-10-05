@@ -7,102 +7,116 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%232563EB'/%3E%3Ctext x='50' y='70' font-size='46' font-family='monospace' font-weight='bold' text-anchor='middle' fill='%23fff'%3E%C3%A1%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
   --tinta:#12263F; --gris:#7A8AA0; --verde:#0E9F6E;
   --rojo:#E11D48; --cursor:#2563EB; --linea:#DDE5EF;
-  --tecla-borde:#C9D6E5;
 }
 html,body{height:100%}
 body{
-  font-family:"Baloo 2","Fredoka",system-ui,sans-serif;
-  background:#F7F9FC;color:var(--tinta);
+  font-family:"Baloo 2",system-ui,sans-serif;
+  background:#F4F7FB;color:var(--tinta);
   display:flex;flex-direction:column;
   min-height:100vh;overflow:hidden;
 }
 
-/* ---------- barra ---------- */
-.barra{
-  display:flex;align-items:center;gap:10px;
-  padding:10px 20px;border-bottom:2px solid var(--linea);
-  background:#fff;flex-wrap:wrap;
-}
+/* ---------------- barra ---------------- */
+.barra{display:flex;align-items:center;gap:10px;padding:10px 20px;border-bottom:2px solid var(--linea);background:#fff;flex-wrap:wrap}
 .marca{font-size:1rem;font-weight:800;display:flex;align-items:center;gap:8px;white-space:nowrap}
 .marca span{background:var(--cursor);color:#fff;width:27px;height:27px;border-radius:8px;display:grid;place-items:center;font-size:.9rem}
-.so{
-  font-size:.82rem;font-weight:700;padding:5px 12px;border-radius:99px;
-  background:#E8F0FE;color:#1D4FD8;border:2px solid #C6DAFB;
-  cursor:pointer;white-space:nowrap;
-}
+.so{font-size:.82rem;font-weight:700;padding:5px 12px;border-radius:99px;background:#E8F0FE;color:#1D4FD8;border:2px solid #C6DAFB;cursor:pointer;white-space:nowrap}
 .so:hover{background:#DCE8FE}
 .contador{font-size:.92rem;color:var(--gris);font-weight:600;margin-left:auto;white-space:nowrap}
-.contador b{color:var(--tinta);font-size:1.08rem}
-.progreso{height:6px;background:var(--linea);flex:0 0 auto}
+.contador b{color:var(--tinta);font-size:1.1rem}
+.progreso{height:7px;background:var(--linea);flex:0 0 auto}
 .progreso i{display:block;height:100%;background:var(--verde);width:0;transition:width .3s ease}
 
-.escena{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:12px;min-height:0}
-.caption{font-size:.9rem;color:var(--gris);font-weight:600;text-align:center}
+.escena{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:10px;min-height:0}
+.caption{font-size:.95rem;color:var(--gris);font-weight:700;text-align:center}
 .direccion{
-  font-size:clamp(1.7rem,4.8vw,4.5rem);font-weight:800;line-height:1.25;
-  text-align:center;word-break:break-all;
-  max-width:22ch;display:flex;flex-wrap:wrap;justify-content:center;
+  font-size:clamp(1.9rem,5.6vw,5.4rem);font-weight:800;line-height:1.18;
+  text-align:center;word-break:break-all;max-width:min(30ch,94vw);
+  display:flex;flex-wrap:wrap;justify-content:center;
   transition:filter .2s;
 }
 .car{position:relative;display:inline-block;transition:color .12s,background .12s,transform .12s}
 .car.pend{color:#BAC7D9}
 .car.ok{color:var(--verde)}
 .car.mal{color:var(--rojo)}
-.car.actual:not(.mal)::after{
-  content:"";position:absolute;left:0;right:0;bottom:.03em;height:.1em;
-  background:var(--cursor);border-radius:3px;animation:latir 1s ease-in-out infinite;
-}
+.car.actual:not(.mal)::after{content:"";position:absolute;left:0;right:0;bottom:.02em;height:.09em;background:var(--cursor);border-radius:3px;animation:latir 1s ease-in-out infinite}
 @keyframes latir{0%,100%{opacity:1}50%{opacity:.3}}
-.car.error{background:#FFE4E6;border-radius:6px;transform:translateY(-3px) scale(1.06)}
-.marcador{min-height:1.5em;font-size:clamp(1.15rem,2.8vw,1.9rem);font-weight:800;color:var(--verde);opacity:0;transition:opacity .16s}
+.car.error{background:#FFE4E6;border-radius:8px;transform:translateY(-4px) scale(1.06)}
+.marcador{min-height:1.4em;font-size:clamp(1.2rem,3vw,2.1rem);font-weight:800;color:var(--verde);opacity:0;transition:opacity .16s}
 .marcador.visible{opacity:1}
 .marcador.fallo{color:var(--rojo)}
 
-/* ---------- teclado ---------- */
-.teclado{display:flex;flex-direction:column;align-items:center;gap:5px;padding:4px 10px}
-.teclado.oculto{display:none}
-.fila{display:flex;gap:5px;justify-content:center}
-.k{
-  width:clamp(25px,3.1vw,44px);height:clamp(25px,3.2vw,44px);
-  display:grid;place-items:center;
-  background:#fff;border:1.5px solid var(--tecla-borde);
-  border-bottom-width:3px;border-radius:7px;
-  font-size:clamp(.7rem,1.1vw,1rem);font-weight:700;color:#33475E;
-  transition:background .1s,color .1s,transform .1s,border-color .1s;
+/* ---------------- teclado físico ---------------- */
+.marco{
+  margin:2px auto 0;padding:clamp(6px,1.1vw,14px);
+  width:min(1080px,98vw);
+  background:linear-gradient(180deg,#2B3B52,#1E2B3E);
+  border-radius:16px;
+  box-shadow:0 8px 22px rgba(18,38,63,.28),inset 0 1px 0 rgba(255,255,255,.14);
 }
-.k.ancha{width:clamp(46px,5.9vw,84px)}
-.k.mas{width:clamp(58px,7.3vw,104px)}
-.k.espacio{width:clamp(150px,24vw,360px);font-size:clamp(.6rem,.85vw,.78rem);color:#93A5BC}
-.k.pulsada{background:var(--verde);color:#fff;border-color:var(--verde);transform:translateY(2px);border-bottom-width:1.5px}
-.k.siguiente{background:#E8F0FE;border-color:var(--cursor);color:#1D4FD8}
-.k.dimmer{color:#93A5BC;font-weight:600}
+#teclado{display:flex;flex-direction:column;gap:clamp(3px,.42vw,6px)}
+#teclado.oculto{display:none}
+.fila{display:flex;gap:clamp(3px,.42vw,6px)}
+/* escalonado real del teclado: cada fila se mete un poco más */
+.r0{padding-inline:0}
+.r1{padding-inline:1.6%}
+.r2{padding-inline:3.6%}
+.r3{padding-inline:5.4%}
+.r4{padding-inline:2.4%}
 
-/* ---------- pie ---------- */
-.pie{display:flex;gap:10px;align-items:center;justify-content:center;padding:8px 20px}
-button{
-  font-family:inherit;font-size:.92rem;font-weight:600;padding:9px 15px;border-radius:10px;
-  border:2px solid var(--linea);background:#fff;color:var(--tinta);cursor:pointer;
-  transition:transform .1s,background .15s,border-color .15s;
+.k{
+  flex:1 1 0;min-width:0;
+  height:clamp(30px,4.3vw,58px);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;
+  background:linear-gradient(180deg,#FFFFFF,#E6ECF4);
+  border:1px solid #C3D0E0;border-bottom:4px solid #A2B2C8;
+  border-radius:9px;
+  font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  font-size:clamp(.72rem,1.45vw,1.32rem);font-weight:700;color:#2E4056;
+  white-space:nowrap;line-height:1.05;
+  box-shadow:0 2px 3px rgba(15,30,50,.10);
+  transition:transform .07s,background .12s,color .12s,border-color .12s;
 }
-button:hover{background:#F0F5FB;border-color:#C6D4E4}
+.k .s{font-size:.6em;opacity:.55;font-weight:700}
+.k .i{font-size:1.05em}
+.k.txt{font-size:clamp(.5rem,.85vw,.72rem);color:#8496AC;font-family:inherit;font-weight:700}
+.k.pulsada{
+  transform:translateY(3px);border-bottom-width:1px;color:#fff;
+  background:linear-gradient(180deg,#34D399,#059669);border-color:#059669;
+  box-shadow:0 0 16px rgba(16,185,129,.5);
+}
+.k.siguiente{
+  background:linear-gradient(180deg,#DBEAFE,#BFDBFE);
+  border-color:var(--cursor);color:#1D4FD8;
+  box-shadow:0 0 16px rgba(37,99,235,.45);
+}
+.k.shift-encendido{
+  background:linear-gradient(180deg,#FDE68A,#F59E0B);border-color:#D97706;color:#7C2D12;
+  transform:translateY(2px);box-shadow:0 0 18px rgba(245,158,11,.55);
+}
+
+/* ---------------- pie ---------------- */
+.pie{display:flex;gap:10px;align-items:center;justify-content:center;padding:10px 20px 6px;flex-wrap:wrap}
+button{font-family:inherit;font-size:.95rem;font-weight:600;padding:10px 16px;border-radius:10px;border:2px solid var(--linea);background:#fff;color:var(--tinta);cursor:pointer;transition:transform .1s,background .15s,border-color .15s}
+button:hover{background:#EDF3FA;border-color:#C6D4E4}
 button:active{transform:translateY(2px)}
 button.primario{background:var(--cursor);border-color:var(--cursor);color:#fff}
 button.primario:hover{background:#1D4FD8}
-.nota{font-size:.8rem;color:var(--gris);font-weight:600;text-align:center;padding:0 20px 10px}
-kbd{background:#EEF2F8;border:1px solid #D5DFEC;border-bottom-width:3px;border-radius:5px;padding:1px 5px;font-family:inherit;font-weight:600;font-size:.85em}
-.sin-ver .direccion{filter:blur(16px)}
+.nota{font-size:.82rem;color:var(--gris);font-weight:600;text-align:center;padding:0 20px 10px}
+kbd{background:#EEF2F8;border:1px solid #D5DFEC;border-bottom-width:3px;border-radius:5px;padding:1px 6px;font-family:inherit;font-weight:700;font-size:.85em}
+.sin-ver .direccion{filter:blur(18px)}
 .sin-ver .direccion:hover{filter:blur(9px)}
-@media (max-height:700px){
-  .direccion{font-size:clamp(1.4rem,3.4vw,2.6rem)}
-  .k{width:clamp(22px,2.6vw,34px);height:clamp(22px,2.7vw,34px)}
+@media (max-height:820px){
+  .direccion{font-size:clamp(1.5rem,4vw,3.2rem)}
+  .k{height:clamp(26px,3.4vw,42px);font-size:clamp(.62rem,1.05vw,.95rem);border-bottom-width:3px}
 }
-@media (max-width:760px){.direccion{max-width:100%}}
+@media (max-width:700px){.direccion{max-width:100%}}
 </style>
 </head>
 <body>
@@ -120,19 +134,21 @@ kbd{background:#EEF2F8;border:1px solid #D5DFEC;border-bottom-width:3px;border-r
 <div class="progreso"><i id="barra"></i></div>
 
 <div class="escena">
-  <div class="caption">Escribe la dirección con el teclado</div>
+  <div class="caption">Escribe la dirección de internet</div>
   <div class="direccion" id="linea"></div>
   <div class="marcador" id="marcador"></div>
 </div>
 
-<div class="teclado" id="teclado"></div>
+<div class="marco">
+  <div id="teclado"></div>
+</div>
 
 <div class="pie">
   <button class="primario" id="btnOtra">Otra dirección</button>
 </div>
 
 <div class="nota">
-  <kbd>´</kbd> + vocal = acentuada · <kbd>Shift</kbd> + <kbd>´</kbd> + <kbd>u</kbd> = <b>ü</b> ·
+  La tecla <b>⇧ Shift</b> se ilumina en amarillo cuando la letra o el signo la necesita ·
   <kbd>Enter</kbd> pasa de dirección · <kbd>⌫</kbd> borra
 </div>
 
@@ -142,57 +158,42 @@ kbd{background:#EEF2F8;border:1px solid #D5DFEC;border-bottom-width:3px;border-r
 const $ = id => document.getElementById(id);
 
 /* ==========================================================
-   1. Direcciones: calles, números y también páginas web
+   1. Direcciones de internet — SIEMPRE con https://
    ========================================================== */
-const CALLES = [
-  "Reforma","Juárez","Madero","Héroes","Insurgentes","Liberación",
-  "Constitución","Revolución","Cuauhtémoc","Altamira","Encino","Sabino",
-  "Fresno","Roble","Olmo","Ceiba","Abeto","Cedro","Álamo","Enebro",
-  "Praga","Hamburgo","Londres","París","Tokio","Berlín","Roma","Nápoles",
-  "Chapultepec","Xochimilco","Churubusco","Coyoacán","Tacubaya","Mixcoac",
-  "Iztacalco","Versalles","Atenas","Bélgica","Croacia","Suiza","Noruega",
-  "Durango","Zaragoza","Guanajuato","Morelia","Puebla","Oaxaca",
-  "Niños Héroes","Peña","Ocampo","Manteñilla","Cañada"
-];
-const PREFIJOS = ["","","","","","Av. ","Av. ","Calle ","Sta. "];
-const NUMEROS = [1,2,3,4,5,7,8,9,10,12,14,15,16,18,20,21,24,25,27,30,32,35,
-  38,40,42,45,48,50,55,60,64,70,75,80,85,90,96,100,105,110,120,125,130,
-  140,150,160,175,180,190,200,210,220,240,250,260,280,300,320,350,400,450,500];
-
 const DOMINIOS = [
   "ejemplo.mx","ejemplo.com","colegio.edu.mx","escuela.edu.mx","jardin.mx",
   "biblioteca.mx","museo.com.mx","cultura.gob.mx","salud.gob.mx","banco.mx",
   "tienda.mx","videos.com.mx","noticias.mx","deportes.mx","aula.edu.mx",
   "cecyt.mx","unam.mx","ipn.mx","gob.mx"
 ];
-const RUTAS = ["","","","","","/2026","/noticias","/deportes","/aulas",
-  "/ayuda","/2026","/deportes"];
+/* también con acentos y eñes, como los dominios reales con ñ y tildes */
+const DOMINIOS_LATIN = [
+  "méxico.gob.mx","españa.es","música.com.mx","ángeles.edu.mx",
+  "límites.com.mx","peña.travel","cañón.com.mx","ñandú.com.ar"
+];
+const RUTAS = [
+  "","","","","",
+  "/2026","/noticias","/deportes","/aulas","/ayuda","/mapa",
+  "/Archivo","/Noticias","/Documentos"
+];
 
-/* una dirección no debe ser tan larga que canse antes de terminarse */
+const RONDA = 120;
 const LARGO_MAX = 30;
+const azar = n => Math.floor(Math.random() * n);
 
 function direccionWeb(){
-  const dom = DOMINIOS[azar(DOMINIOS.length)];
-  const conW = Math.random() < 0.45 ? "www." : "";
+  const usarLatin = Math.random() < 0.22;
+  const lista = usarLatin ? DOMINIOS_LATIN : DOMINIOS;
+  const dom = lista[azar(lista.length)];
+  const conW = Math.random() < 0.4 ? "www." : "";
   const base = "https://" + conW + dom;
   const rutas = RUTAS.filter(r => (base + r).length <= LARGO_MAX);
   return base + rutas[azar(rutas.length)];
 }
 
-const RONDA = 120;
-const azar = n => Math.floor(Math.random()*n);
-
-function direccionCalle(){
-  return PREFIJOS[azar(PREFIJOS.length)] +
-         CALLES[azar(CALLES.length)] + " " +
-         NUMEROS[azar(NUMEROS.length)];
-}
-
 function construirRonda(cuantas){
   const todas = [];
-  for (let i = 0; i < cuantas; i++){
-    todas.push(Math.random() < 0.6 ? direccionCalle() : direccionWeb());
-  }
+  for (let i = 0; i < cuantas; i++) todas.push(direccionWeb());
   for (let i = todas.length - 1; i > 0; i--){
     const j = azar(i + 1);
     const t = todas[i]; todas[i] = todas[j]; todas[j] = t;
@@ -201,55 +202,84 @@ function construirRonda(cuantas){
 }
 
 /* ==========================================================
-   2. Teclado: detectar Windows o Mac y dibujar el layout latino
+   2. Teclado físico: Windows o Mac, layout latino
+   Cada tecla: [leyenda, carácter que produce,factor de ancho]
    ========================================================== */
+/* Cada tecla: [carácter normal, carácter con Shift (o null), ancho] */
+const FILA_NUM  = [ ["\\","|"],["1","!"],["2","\""],["3","#"],["4","$"],["5","%"],
+                    ["6","&"],["7","/"],["8","("],["9",")"],["0","="],
+                    ["'","\""],["¿","?"],["⌫",null,1.7] ];
+const FILA_SUP  = [ ["q"],["w"],["e"],["r"],["t"],["y"],
+                    ["u"],["i"],["o"],["p"],["´","¨"],["+","*"],
+                    ["⏎",null,2.2] ];
+const FILA_MED  = [ ["a"],["s"],["d"],["f"],["g"],["h"],
+                    ["j"],["k"],["l"],["ñ"],["'","\""],
+                    ["⏎",null,2.6] ];
+const FILA_INF  = [ ["⇧",null,2.5],["<",">"],["z"],["x"],["c"],["v"],
+                    ["b"],["n"],["m"],[",",";"],[".",":"],["-","_"],
+                    ["⇧",null,2.9] ];
+const FILA_BAJ  = [ ["Ctrl",null,1.5],["⌥",null,1.2],["⌘",null,1.2],
+                    ["␣",null,6.4],["⌘",null,1.2],["⌥",null,1.2],
+                    ["Ctrl",null,1.5] ];
+
 const TECLADOS = {
   win: {
-    nombre: "Windows",
-    filas: [
-      ["|","1","2","3","4","5","6","7","8","9","0","'","¿","⌫"],
-      ["q","w","e","r","t","y","u","i","o","p","´","+"],
-      ["a","s","d","f","g","h","j","k","l","ñ","'","\\"],
-      ["⇧","<",">","z","x","c","v","b","n","m",",",".","-","_"]
-    ],
-    anchas: {3:"ancha", 0:"mas"}
+    nombre:"Windows",
+    filas:[
+      { c:"r0", k:FILA_NUM },
+      { c:"r1", k:[["⇥",null,1.6]].concat(FILA_SUP) },
+      { c:"r2", k:[["⇪",null,2.1]].concat(FILA_MED) },
+      { c:"r3", k:FILA_INF },
+      { c:"r4", k:FILA_BAJ }
+    ]
   },
   mac: {
-    nombre: "Mac",
-    filas: [
-      ["|","1","2","3","4","5","6","7","8","9","0","'","¿","⌫"],
-      ["q","w","e","r","t","y","u","i","o","p","´","+"],
-      ["a","s","d","f","g","h","j","k","l","ñ","'"],
-      ["⇧","<",">","z","x","c","v","b","n","m",",",".","-","_"]
-    ],
-    anchas: {3:"ancha", 0:"mas"}
+    nombre:"Mac",
+    filas:[
+      { c:"r0", k:FILA_NUM },
+      { c:"r1", k:[["⌃",null,1.6]].concat(FILA_SUP) },
+      { c:"r2", k:[["⌥",null,1.9]].concat(FILA_MED) },
+      { c:"r3", k:FILA_INF },
+      { c:"r4", k:[["fn",null,1.3],["Ctrl",null,1.3],["⌥",null,1.2],["⌘",null,1.3],
+                  ["␣",null,5.6],["⌘",null,1.3],["⌥",null,1.2],["Ctrl",null,1.3]] }
+    ]
   }
 };
 
-/* cada tecla también "produce" su variante con Shift */
+/* cada tecla también produce su variante con Shift pulsada */
 const CON_SHIFT = {
-  "|":"\\", "'":"\"", "´":"¨", "+":"*", "<":">", ",":";",
-  ".":":", "-":"_", "¿":"?", "`":"~"
+  "\\":"|", "1":"!", "2":"\"", "3":"#", "4":"$", "5":"%",
+  "6":"&", "7":"/", "8":"(", "9":")", "0":"=",
+  "'":"\"", "¿":"?", "´":"¨", "+":"*", "<":">",
+  ",":";", ".":":", "-":"_"
 };
 
 function detectarSO(){
   const datos = (navigator.userAgentData && navigator.userAgentData.platform) || "";
   const s = (datos + " " + (navigator.platform || "") + " " + (navigator.userAgent || "")).toLowerCase();
-  if (/mac|iphone|ipad|ipod/.test(s)) return "mac";
-  return "win";   // windows, linux, android, cromebooks: teclado físico latino
+  return /mac|iphone|ipad|ipod/.test(s) ? "mac" : "win";
 }
 
 let tipoTeclado = detectarSO();
 
 const elTeclado = $("teclado");
-const mapaTeclas = new Map();     // carácter -> [nodos del DOM]
+const mapaTeclas = new Map();      // carácter -> [nodos]
+const teclasShift = [];            // nodos ⇧
 
-function indexar(leyenda, nodo){
-  const variantes = [leyenda];
-  if (CON_SHIFT[leyenda]) variantes.push(CON_SHIFT[leyenda]);
-  if (/^[a-záéíóúü]$/i.test(leyenda)) variantes.push(leyenda.toUpperCase());
-  if (leyenda === "ñ") variantes.push("Ñ");
+/* caracteres que NO salen solos: hay que apretar Shift */
+const PIDE_SHIFT = new Set();
+for (const base in CON_SHIFT) PIDE_SHIFT.add(CON_SHIFT[base]);
+
+function pideShift(ch){
+  return PIDE_SHIFT.has(ch) || /[A-ZÁÉÍÓÚÑÜ]/.test(ch);
+}
+
+function indexar(sub, sup, nodo){
+  const variantes = [sub];
+  if (sup) variantes.push(sup);
+  if (/^[a-záéíóúüñ]$/i.test(sub)) variantes.push(sub.toUpperCase());
   for (const c of variantes){
+    if (c.length !== 1) continue;
     if (!mapaTeclas.has(c)) mapaTeclas.set(c, []);
     mapaTeclas.get(c).push(nodo);
   }
@@ -259,30 +289,25 @@ function dibujarTeclado(){
   const t = TECLADOS[tipoTeclado];
   elTeclado.textContent = "";
   mapaTeclas.clear();
+  teclasShift.length = 0;
 
-  t.filas.forEach((fila, i) => {
+  t.filas.forEach(fila => {
     const div = document.createElement("div");
-    div.className = "fila";
-    fila.forEach(leyenda => {
-      const k = document.createElement("div");
-      k.className = "k";
-      k.textContent = leyenda;
-      if (t.anchas[i]) k.classList.add(t.anchas[i]);
-      if (leyenda === "⇧" || leyenda === "⌫") k.classList.add("dimmer");
-      div.appendChild(k);
-      indexar(leyenda, k);
+    div.className = "fila " + fila.c;
+    fila.k.forEach(k => {
+      const sub = k[0], sup = k.length > 1 ? k[1] : null, ancho = k[2];
+      const n = document.createElement("div");
+      n.className = "k";
+      if (sub.length > 1) n.classList.add("txt");
+      n.innerHTML = (sup ? '<span class="s">' + sup + '</span>' : "")
+                  + '<span class="i">' + (sub === " " ? "␣" : sub) + '</span>';
+      if (sub === "⇧") teclasShift.push(n);
+      if (ancho) n.style.flexGrow = ancho;
+      div.appendChild(n);
+      indexar(sub, sup, n);
     });
     elTeclado.appendChild(div);
   });
-
-  const filaEspacio = document.createElement("div");
-  filaEspacio.className = "fila";
-  const barra = document.createElement("div");
-  barra.className = "k espacio";
-  barra.textContent = "espacio";
-  filaEspacio.appendChild(barra);
-  elTeclado.appendChild(filaEspacio);
-  mapaTeclas.set(" ", [barra]);
 
   $("so").textContent = "Teclado: " + t.nombre;
   $("btnTeclado").textContent = "Ocultar teclado";
@@ -299,17 +324,21 @@ function pulsarEnTeclado(caracter){
   });
 }
 
+function shiftEncendido(activo){
+  teclasShift.forEach(n => n.classList.toggle("shift-encendido", activo));
+}
+
 function marcarSiguiente(){
-  document.querySelectorAll(".k.siguiente").forEach(k => k.classList.remove("siguiente"));
-  if (bloqueado || pos >= actual.length) return;
+  document.querySelectorAll(".k.siguiente").forEach(n => n.classList.remove("siguiente"));
+  if (bloqueado || pos >= actual.length){ shiftEncendido(false); return; }
   const nodos = mapaTeclas.get(actual[pos]);
   if (nodos) nodos.forEach(n => n.classList.add("siguiente"));
+  shiftEncendido(pideShift(actual[pos]));
 }
 
 /* ==========================================================
    3. Motor de tecleo
    ========================================================== */
-const RONDA_POR_DEFECTO = RONDA;
 let cola = [];
 let indice = 0;
 let actual = "";
@@ -321,14 +350,16 @@ let reloj = null;
 function pintar(){
   const cont = $("linea");
   cont.textContent = "";
+  const letras = document.createDocumentFragment();
   for (let i = 0; i < actual.length; i++){
     const s = document.createElement("span");
     s.className = "car";
     if (i < pos) s.classList.add("ok");
     else if (i === pos) s.classList.add("actual", "pend");
     s.textContent = actual[i];
-    cont.appendChild(s);
+    letras.appendChild(s);
   }
+  cont.appendChild(letras);
   $("cual").textContent = indice + 1;
   $("de").textContent = "de " + cola.length;
   $("errores").textContent = errores;
@@ -351,7 +382,7 @@ function mostrar(){
 }
 
 function nuevaRonda(){
-  cola = construirRonda(RONDA_POR_DEFECTO);
+  cola = construirRonda(RONDA);
   indice = 0;
   errores = 0;
   mostrar();
@@ -361,8 +392,8 @@ function terminar(){
   bloqueado = true;
   pintar();
   avisar("¡Bien!", false);
-  const completada = actual;
-  completada.split("").forEach((c, i) => setTimeout(() => pulsarEnTeclado(c), i * 45));
+  const hecha = actual;
+  hecha.split("").forEach((c, i) => setTimeout(() => pulsarEnTeclado(c), i * 40));
   reloj = setTimeout(() => {
     $("marcador").classList.remove("visible");
     indice++;
@@ -373,7 +404,6 @@ function terminar(){
 
 function teclear(ch){
   if (bloqueado) return;
-  const esperado = actual[pos];
 
   if (ch === "Enter"){
     indice++;
@@ -383,35 +413,30 @@ function teclear(ch){
   if (ch === "Backspace"){
     if (pos > 0){
       pos--;
-      const previo = document.querySelectorAll(".car")[pos];
-      if (previo){ previo.classList.remove("ok", "error"); previo.classList.add("pend", "actual"); }
-      if (pos < actual.length - 1){
-        const siguiente = document.querySelectorAll(".car")[pos + 1];
-        if (siguiente){ siguiente.classList.remove("actual"); siguiente.classList.add("pend"); }
-      }
+      const letras = document.querySelectorAll(".car");
+      if (letras[pos]){ letras[pos].classList.remove("ok","error"); letras[pos].classList.add("pend","actual"); }
+      if (letras[pos + 1]){ letras[pos + 1].classList.remove("actual"); letras[pos + 1].classList.add("pend"); }
       marcarSiguiente();
     }
     return;
   }
-  if (ch === "Shift" || ch === "Control" || ch === "Alt" || ch === "Meta") return;
   if (ch.length !== 1) return;
 
   pulsarEnTeclado(ch);
 
-  if (ch === esperado){
-    const nodo = document.querySelectorAll(".car")[pos];
-    if (nodo){ nodo.classList.remove("actual", "pend"); nodo.classList.add("ok"); }
+  if (ch === actual[pos]){
+    const letras = document.querySelectorAll(".car");
+    if (letras[pos]){ letras[pos].classList.remove("actual","pend"); letras[pos].classList.add("ok"); }
     pos++;
     if (pos >= actual.length){ terminar(); return; }
-    const actualNodo = document.querySelectorAll(".car")[pos];
-    if (actualNodo) actualNodo.classList.add("actual", "pend");
+    if (letras[pos]) letras[pos].classList.add("actual","pend");
     marcarSiguiente();
     $("barra").style.width = Math.round(((indice + pos / actual.length) / cola.length) * 100) + "%";
   } else {
     errores++;
     $("errores").textContent = errores;
-    const nodo = document.querySelectorAll(".car")[pos];
-    if (nodo) nodo.classList.add("error");
+    const letras = document.querySelectorAll(".car");
+    if (letras[pos]) letras[pos].classList.add("error");
     avisar("Casi", true);
     setTimeout(() => {
       const n = document.querySelectorAll(".car")[pos];
@@ -423,47 +448,40 @@ function teclear(ch){
 
 document.addEventListener("keydown", ev => {
   if (ev.ctrlKey || ev.metaKey || ev.altKey) return;
-  /* evita que Espacio o Enter vuelvan a disparar el boton que tenga el foco */
   ev.preventDefault();
   let k = ev.key;
-  /* algunos navegadores/teclados entregan la letra en minuscula aun con Shift
-     pulsado: se acepta tambien la version en mayuscula */
+  /* algunos navegadores entregan la letra en minúscula aun con Shift:
+     se acepta también la versión en mayúscula */
   if (ev.shiftKey && k.length === 1) k = k.toUpperCase();
+  if (k === "Shift"){ shiftEncendido(true); return; }
   teclear(k);
 });
+document.addEventListener("keyup", ev => { if (ev.key === "Shift") shiftEncendido(pideShift(actual[pos])); });
 
 /* ==========================================================
    4. Botones
    ========================================================== */
-$("btnOtra").addEventListener("click", () => {
+function siguiente(){
   clearTimeout(reloj);
   $("marcador").classList.remove("visible");
   indice++;
   if (indice >= cola.length) nuevaRonda(); else mostrar();
-});
-
-$("btnReiniciar").addEventListener("click", () => {
-  clearTimeout(reloj);
-  $("marcador").classList.remove("visible");
-  nuevaRonda();
-});
+}
+$("btnOtra").addEventListener("click", siguiente);
+$("btnReiniciar").addEventListener("click", () => { clearTimeout(reloj); nuevaRonda(); });
 
 $("btnOcultar").addEventListener("click", () => {
   document.body.classList.toggle("sin-ver");
-  $("btnOcultar").textContent = document.body.classList.contains("sin-ver")
-    ? "Ver texto" : "Ocultar texto";
+  $("btnOcultar").textContent = document.body.classList.contains("sin-ver") ? "Ver texto" : "Ocultar texto";
 });
-
 $("btnTeclado").addEventListener("click", () => {
   const oculto = elTeclado.classList.toggle("oculto");
   $("btnTeclado").textContent = oculto ? "Mostrar teclado" : "Ocultar teclado";
 });
-
 $("so").addEventListener("click", () => {
   tipoTeclado = tipoTeclado === "win" ? "mac" : "win";
   dibujarTeclado();
 });
-
 $("btnPantalla").addEventListener("click", () => {
   if (document.fullscreenElement) document.exitFullscreen();
   else document.documentElement.requestFullscreen().catch(() => {});
