@@ -71,6 +71,15 @@ Mac:      a s d f g h j k l ñ '
 El distintivo azul de la barra superior dice cuál está puesto. **Si te equivoca**
 —porque usas teclado Mac en una PC, por ejemplo— tócalo y alterna entre los dos.
 
+La fila de abajo también cambia, como en un teclado real:
+
+```
+Windows:  Ctrl  ⊞  Alt  [espacio]  Alt  ⊞  Ctrl
+Mac:      fn  Ctrl  ⌥  ⌘  [espacio]  ⌘  ⌥  Ctrl
+```
+
+`⊞` es el logo de Windows (las cuatro ventanitas).
+
 ## Controles
 
 | Tecla | Qué hace |

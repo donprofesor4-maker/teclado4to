@@ -85,6 +85,7 @@ body{
 }
 .k .s{font-size:.6em;opacity:.55;font-weight:700}
 .k .i{font-size:1.05em}
+.k .globo{width:clamp(.72rem,1.35vw,1.2rem);height:clamp(.72rem,1.35vw,1.2rem);fill:currentColor;opacity:.82;flex:0 0 auto}
 .k.txt{font-size:clamp(.5rem,.85vw,.72rem);color:#8496AC;font-family:inherit;font-weight:700}
 .k.pulsada{
   transform:translateY(3px);border-bottom-width:1px;color:#fff;
@@ -218,9 +219,13 @@ const FILA_MED  = [ ["a"],["s"],["d"],["f"],["g"],["h"],
 const FILA_INF  = [ ["⇧",null,2.5],["<",">"],["z"],["x"],["c"],["v"],
                     ["b"],["n"],["m"],[",",";"],[".",":"],["-","_"],
                     ["⇧",null,2.9] ];
-const FILA_BAJ  = [ ["Ctrl",null,1.5],["⌥",null,1.2],["⌘",null,1.2],
-                    ["␣",null,6.4],["⌘",null,1.2],["⌥",null,1.2],
-                    ["Ctrl",null,1.5] ];
+const FILA_BAJ_MAC = [ ["Ctrl",null,1.4],["⌥",null,1.2],["⌘",null,1.3],
+                    ["␣",null,5.6],["⌘",null,1.3],["⌥",null,1.2],
+                    ["Ctrl",null,1.4] ];
+/* "__win__" se dibuja como el logo de Windows (las cuatro ventanitas) */
+const FILA_BAJ_WIN = [ ["Ctrl",null,1.4],["__win__",null,1.1],["Alt",null,1.2],
+                    ["␣",null,6.4],["Alt",null,1.2],["__win__",null,1.1],
+                    ["Ctrl",null,1.4] ];
 
 const TECLADOS = {
   win: {
@@ -230,7 +235,7 @@ const TECLADOS = {
       { c:"r1", k:[["⇥",null,1.6]].concat(FILA_SUP) },
       { c:"r2", k:[["⇪",null,2.1]].concat(FILA_MED) },
       { c:"r3", k:FILA_INF },
-      { c:"r4", k:FILA_BAJ }
+      { c:"r4", k:FILA_BAJ_WIN }
     ]
   },
   mac: {
@@ -285,6 +290,10 @@ function indexar(sub, sup, nodo){
   }
 }
 
+const LOGO_WIN = '<svg class="globo" viewBox="0 0 12 12" aria-hidden="true">'
+  + '<rect x="0" y="0" width="5" height="5"/><rect x="6.4" y="0" width="5" height="5"/>'
+  + '<rect x="0" y="6.4" width="5" height="5"/><rect x="6.4" y="6.4" width="5" height="5"/></svg>';
+
 function dibujarTeclado(){
   const t = TECLADOS[tipoTeclado];
   elTeclado.textContent = "";
@@ -298,13 +307,13 @@ function dibujarTeclado(){
       const sub = k[0], sup = k.length > 1 ? k[1] : null, ancho = k[2];
       const n = document.createElement("div");
       n.className = "k";
-      if (sub.length > 1) n.classList.add("txt");
+      if (sub.length > 1 && sub !== "__win__") n.classList.add("txt");
       n.innerHTML = (sup ? '<span class="s">' + sup + '</span>' : "")
-                  + '<span class="i">' + (sub === " " ? "␣" : sub) + '</span>';
+                  + (sub === "__win__" ? LOGO_WIN : '<span class="i">' + (sub === " " ? "␣" : sub) + '</span>');
       if (sub === "⇧") teclasShift.push(n);
       if (ancho) n.style.flexGrow = ancho;
       div.appendChild(n);
-      indexar(sub, sup, n);
+      if (sub !== "__win__") indexar(sub, sup, n);
     });
     elTeclado.appendChild(div);
   });
