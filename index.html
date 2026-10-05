@@ -485,19 +485,27 @@ function teclear(ch){
 }
 
 document.addEventListener("keydown", ev => {
-  /* En Mac, Option+vocal entrega el carácter YA compuesto (é, ñ, ü…).
-     Se acepta como atajo, pero solo si no hay un acento pendiente. */
+  /* En Mac, Option+vocal entrega el carácter YA compuesto (é, ñ, ü…). */
   if (ev.altKey){
     if (ev.key.length === 1 && acentoPendiente === null) teclear(ev.key);
     return;
   }
   if (ev.ctrlKey || ev.metaKey) return;
-  ev.preventDefault();
   let k = ev.key;
 
-  /* Tecla muerta: se guarda el acento y se espera la vocal.
-     "Dead" = el navegador no identifica cuál es → "" (se compone igual). */
-  if (k === "Dead"){ acentoPendiente = ""; return; }
+  /* TECLA MUERTA — se atiende ANTES de preventDefault a propósito:
+     preventDefault cancela la composición nativa de macOS/Windows y el
+     carácter acentuado nunca llegaría. Aquí solo se anota el acento (por ev.code,
+     como respaldo si la plataforma no compone) y se deja actuar al sistema. */
+  if (k === "Dead"){
+    acentoPendiente = (ev.code === "Backquote") ? "¨"
+                    : (ev.code === "Quote") ? "´"
+                    : "";
+    return;
+  }
+  ev.preventDefault();
+
+  /* acento suelto (plataformas que no lo marcan como Dead): se compone aquí */
   if (k.length === 1 && ACENTOS.includes(k)){
     acentoPendiente = k;
     pulsarEnTeclado(k);
