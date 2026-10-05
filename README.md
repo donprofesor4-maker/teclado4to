@@ -1,49 +1,56 @@
-# teclado4to
+# Práctica de direcciones
 
-Juego de tecleo para **4.º de primaria**, en español latinoamericano.
+Entrenador de **mecanografía** para proyectar en clase. Los alumnos teclean
+direcciones, una tras otra, y no se repiten en toda la sesión.
 
-Un solo archivo: [`index.html`](index.html). No necesita instalación, ni servidor,
-ni conexión a internet (solo las tipografías, que si faltan el juego igual funciona).
+Un solo archivo: [`index.html`](index.html). Sin instalación ni servidor.
 
-## Cómo jugar
+## Cómo se usa
 
-1. Abre `index.html` con Chrome o Edge.
-2. Elige un nivel y luego el modo: **solo** o **dos jugadores**.
+1. Abre `index.html` en Chrome o Edge.
+2. Proyecta. Pulsa **Pantalla completa** si hace falta.
 
-### Los 5 niveles
+El alumno teclea la dirección que aparece. Al terminarla sale otra distinta.
+Cuando se acaba la ronda de 120, se baraja una nueva con otras direcciones.
 
-| Nivel | Qué practica |
-|-------|--------------|
-| 1 | Letras de la fila de arriba |
-| 2 | Sílabas y palabras cortas |
-| 3 | Palabras más largas |
-| 4 | Mayúsculas y `ñ` |
-| 5 | Acentos y signos (`¿ ¡ ' ´`) |
+## Controles
 
-### Acentuar
+| Tecla | Qué hace |
+|-------|----------|
+| teclas normales | teclear la dirección |
+| `Enter` | pasar a la siguiente dirección |
+| `⌫` | borrar un caracter |
 
-- Acento agudo y grave: pulsa `´` y luego la vocal. Aparece el acento solo.
-- `ü`: `Shift` + `´` y después `u`.
-- `¿` está en la tecla de `'` y `¡` con `AltGr` + `1`.
+## Qué practica
 
-El juego reconoce la tecla pulsada, no la tecla física, así que funciona con
-cualquier distribución de teclado.
+- **Acentos:** `´` + vocal → `á é í ó ú`. Para la `ü`: `Shift` + `´` + `u`.
+- **Mayúsculas**, números, punto (`.`) y espacios.
+- **`ñ`** en nombres como *Niños Héroes* o *Peña*.
+- Signs and prefixes: `Av.`, `Calle`, `Sta.`
 
-### Modo dos jugadores
+El comparador usa `KeyboardEvent.key`, o sea el **carácter ya compuesto**, por
+lo que funciona con cualquier distribución de teclado: no importa qué tecla
+física presses.
 
-Los dos teclean en el **mismo teclado**, por turnos. El primero en completar las
-palabras gana. Cuando ambos esperan la misma tecla, la pulsación cuenta para el
-que va más adelante: nadie roba teclas al rival.
+## Botones
 
-## Para el docente
+- **Ocultar texto** — esconde la dirección. Útil cuando el maestro la dicta o
+  cuando se quiereDictado.
+- **Pantalla completa.**
+- **Reiniciar** — baraja de nuevo y pone los errores en cero.
 
-- Los récords se guardan en el navegador (`localStorage`), en el dispositivo.
-  No se envía nada a internet.
-- El sonido se activa con la primera pulsación (los navegadores lo exigen).
-- Para cambiar las palabras, edita el arreglo `NIVELES` dentro del `<script>`.
-- Cada ronda sortea palabras distintas al azar, así que no se repite entre
-  partidas.
+En la barra superior van el número de dirección y los errores acumulados, para
+que el maestro vea el avance de un vistazo.
 
-## Requisitos técnicos
+## Para el maestro
 
-Cualquier navegador moderno. No hay build, ni dependencias, ni servidor.
+- Las direcciones se cruzan entre calles y números: hay miles de combinaciones
+  posibles, así que nunca se repite la misma.
+- No se guarda nada: ni cookies, ni `localStorage`, ni cuentas. No sale nada a
+  internet. Los récords viven solo en la pantalla.
+- Las tipografías vienen de Google Fonts. Si el aula no tiene internet, el juego
+  funciona igual con la tipografía del sistema.
+- Para cambiar o agregar calles, edita el arreglo `CALLES` dentro del `<script>`.
+  Los números están en `NUMEROS` y los prefijos en `PREFIJOS`.
+- Las direcciones duran entre 9 y 18 caracteres, que es lo cómodo para 4.º de
+  primaria sin que se haga eterno.

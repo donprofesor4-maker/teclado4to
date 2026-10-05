@@ -3,695 +3,273 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Teclado 4.º — Misión Teclear</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%234F46E5'/%3E%3Ctext x='50' y='72' font-size='62' font-family='sans-serif' font-weight='bold' text-anchor='middle' fill='%23FFD84D'%3E4%3C/text%3E%3C/svg%3E">
+<title>Práctica de direcciones</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%232563EB'/%3E%3Ctext x='50' y='70' font-size='46' font-family='monospace' font-weight='bold' text-anchor='middle' fill='%23fff'%3E%C3%A1%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --azul:#2f6fed;--azul-d:#1d4bb8;--rojo:#e8455f;--rojo-d:#b52a40;
-  --verde:#17b978;--ambar:#ffb020;--violeta:#8b5cf6;
-  --tinta:#16223a;--gris:#8a93a8;--linea:#e3e8f2;--fondo:#f5f7fc;
+  --tinta:#12263F; --gris:#7A8AA0; --verde:#0E9F6E;
+  --rojo:#E11D48; --cursor:#2563EB; --linea:#DDE5EF;
 }
+html,body{height:100%}
 body{
-  font-family:'Baloo 2',system-ui,sans-serif;background:var(--fondo);color:var(--tinta);
-  min-height:100vh;display:flex;flex-direction:column;align-items:center;
-  padding:14px;user-select:none;-webkit-user-select:none;
+  font-family:"Baloo 2","Fredoka",system-ui,sans-serif;
+  background:#F7F9FC;color:var(--tinta);
+  display:flex;flex-direction:column;
+  min-height:100vh;overflow:hidden;
 }
-h1,h2,h3{font-weight:800;letter-spacing:.5px}
-button{font-family:inherit;cursor:pointer;border:none;outline:none}
-.oculto{display:none!important}
-
-/* ---------- PORTADA ---------- */
-#portada{max-width:880px;width:100%;text-align:center;padding-top:12px}
-.marca{
-  display:inline-flex;align-items:center;gap:9px;background:var(--tinta);color:#fff;
-  padding:7px 17px;border-radius:99px;font-size:14px;font-weight:600;letter-spacing:2px;
-  text-transform:uppercase;margin-bottom:14px;
-}
-.titulo{font-size:clamp(34px,7vw,58px);line-height:1.02;margin-bottom:6px}
-.titulo span{color:var(--violeta)}
-.sub{font-family:'Fredoka',sans-serif;color:var(--gris);font-size:17px;margin-bottom:22px}
-.niveles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:11px;margin-bottom:24px}
-.nv{
-  background:#fff;border:2px solid var(--linea);border-radius:15px;padding:14px 12px;
-  transition:.15s;cursor:pointer;text-align:left;
-}
-.nv:hover{border-color:var(--violeta);transform:translateY(-2px)}
-.nv.sel{border-color:var(--violeta);box-shadow:0 0 0 3px rgba(139,92,246,.22)}
-.nv.sel b{color:var(--violeta)}
-.nv .num{
-  display:inline-grid;place-items:center;width:28px;height:28px;border-radius:9px;
-  background:var(--violeta);color:#fff;font-size:15px;font-weight:800;margin-bottom:7px;
-}
-.nv:nth-child(2) .num{background:var(--azul)}
-.nv:nth-child(3) .num{background:var(--verde)}
-.nv:nth-child(4) .num{background:var(--ambar)}
-.nv:nth-child(5) .num{background:var(--rojo)}
-.nv b{display:block;font-size:16px;line-height:1.2}
-.nv small{font-family:'Fredoka',sans-serif;color:var(--gris);font-size:13px;line-height:1.35;display:block;margin-top:3px}
-.nv .record{
-  margin-top:7px;font-size:12px;font-weight:700;color:var(--verde);
-  font-family:'Fredoka',sans-serif;
-}
-.modos{display:flex;gap:11px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
-.modo{
-  background:#fff;border:3px solid var(--linea);border-radius:16px;padding:15px 26px;
-  font-size:18px;font-weight:700;color:var(--tinta);transition:.15s;
-}
-.modo:hover{border-color:var(--azul)}
-.modo.g2{background:var(--azul);border-color:var(--azul);color:#fff}
-.modo.g2:hover{background:var(--azul-d)}
-.modo small{display:block;font-family:'Fredoka',sans-serif;font-weight:400;font-size:13px;opacity:.85}
-.pie{font-family:'Fredoka',sans-serif;color:var(--gris);font-size:13px;margin-top:14px}
-
-/* ---------- JUEGO ---------- */
-#juego{width:100%;max-width:1060px}
 .barra{
-  display:flex;align-items:center;justify-content:space-between;gap:14px;
-  background:#fff;border-radius:15px;padding:11px 17px;margin-bottom:13px;
-  border:2px solid var(--linea);flex-wrap:wrap;
+  display:flex;align-items:center;gap:14px;
+  padding:13px 24px;border-bottom:2px solid var(--linea);
+  background:#fff;flex-wrap:wrap;
 }
-.barra .nivel{font-size:20px;font-weight:800}
-.barra .nivel small{display:block;font-family:'Fredoka',sans-serif;font-size:13px;color:var(--gris);font-weight:400}
-.crono{font-family:'Fredoka',sans-serif;font-size:29px;font-weight:600;font-variant-numeric:tabular-nums;min-width:96px;text-align:right}
-.btn{
-  background:var(--tinta);color:#fff;border-radius:11px;padding:10px 18px;
-  font-size:15px;font-weight:700;transition:.15s;
+.marca{font-size:1.12rem;font-weight:800;display:flex;align-items:center;gap:9px;white-space:nowrap}
+.marca span{
+  background:var(--cursor);color:#fff;width:29px;height:29px;border-radius:8px;
+  display:grid;place-items:center;font-size:.98rem;
 }
-.btn:hover{background:#000}
+.contador{font-size:.98rem;color:var(--gris);font-weight:600;margin-left:auto;white-space:nowrap}
+.contador b{color:var(--tinta);font-size:1.12rem}
+.progreso{height:7px;background:var(--linea);flex:0 0 auto}
+.progreso i{display:block;height:100%;background:var(--verde);width:0;transition:width .3s ease}
 
-/* texto objetivo */
-.objetivo{
-  background:#fff;border-radius:15px;padding:17px 20px;margin-bottom:13px;
-  border:2px solid var(--linea);font-size:clamp(23px,3.4vw,33px);font-weight:700;
-  line-height:1.45;min-height:78px;word-break:break-word;
+.escena{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:30px;padding:22px;min-height:0;
 }
-.objetivo .f.hecha{color:#b9c2d6}
-.objetivo .f.actual{color:var(--violeta);border-bottom:4px solid var(--violeta)}
-.objetivo .f.mal{color:var(--rojo);text-decoration:line-through}
+.caption{font-size:1rem;color:var(--gris);font-weight:600;text-align:center}
+.direccion{
+  font-size:clamp(2.5rem,8.2vw,6.4rem);font-weight:800;line-height:1.24;
+  text-align:center;letter-spacing:.01em;word-break:break-word;
+  max-width:22ch;display:flex;flex-wrap:wrap;justify-content:center;
+}
+.car{position:relative;display:inline-block;transition:color .12s,background .12s,transform .12s}
+.car.pend{color:#BAC7D9}
+.car.ok{color:var(--verde)}
+.car.mal{color:var(--rojo)}
+.car.actual:not(.mal)::after{
+  content:"";position:absolute;left:0;right:0;bottom:.03em;height:.11em;
+  background:var(--cursor);border-radius:3px;animation:latir 1s ease-in-out infinite;
+}
+@keyframes latir{0%,100%{opacity:1}50%{opacity:.3}}
+.car.error{background:#FFE4E6;border-radius:6px;transform:translateY(-4px) scale(1.06)}
+.marcador{min-height:2.1em;font-size:clamp(1.5rem,4vw,2.5rem);font-weight:800;
+  color:var(--verde);opacity:0;transition:opacity .18s}
+.marcador.visible{opacity:1}
+.marcador.fallo{color:var(--rojo)}
 
-/* paneles jugadores */
-.jugadores{display:grid;gap:12px;margin-bottom:13px}
-.jugadores.uno{grid-template-columns:1fr}
-.jugadores.dos{grid-template-columns:1fr 1fr}
-.jug{
-  background:#fff;border-radius:14px;padding:11px 14px;border:2px solid var(--linea);
-  border-left-width:7px;
+.pie{display:flex;gap:12px;align-items:center;justify-content:center;padding:14px 24px 18px;flex-wrap:wrap}
+button{
+  font-family:inherit;font-size:.98rem;font-weight:600;padding:10px 18px;border-radius:11px;
+  border:2px solid var(--linea);background:#fff;color:var(--tinta);cursor:pointer;
+  transition:transform .1s,background .15s,border-color .15s;
 }
-.jug.p1{border-left-color:var(--azul)}
-.jug.p2{border-left-color:var(--rojo)}
-.jug .fila{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;gap:8px}
-.jug .nom{font-size:17px;font-weight:800}
-.jug .stats{font-family:'Fredoka',sans-serif;font-size:14px;color:var(--gris);font-variant-numeric:tabular-nums}
-.jug .combo{
-  font-weight:800;font-size:16px;color:#fff;background:var(--ambar);
-  padding:2px 10px;border-radius:99px;display:none;
+button:hover{background:#F0F5FB;border-color:#C6D4E4}
+button:active{transform:translateY(2px)}
+button.primario{background:var(--cursor);border-color:var(--cursor);color:#fff}
+button.primario:hover{background:#1D4FD8}
+.nota{font-size:.9rem;color:var(--gris);font-weight:600;text-align:center;padding:0 20px 16px}
+kbd{
+  background:#EEF2F8;border:1px solid #D5DFEC;border-bottom-width:3px;border-radius:6px;
+  padding:1px 7px;font-family:inherit;font-weight:600;font-size:.88em;
 }
-.jug .combo.on{display:inline-block;animation:pop .22s}
-@keyframes pop{from{transform:scale(1.5)}to{transform:scale(1)}}
-.barra-p{height:9px;background:var(--linea);border-radius:99px;overflow:hidden}
-.barra-p i{display:block;height:100%;width:0;transition:width .09s linear;border-radius:99px}
-.p1 .barra-p i{background:var(--azul)}
-.p2 .barra-p i{background:var(--rojo)}
-
-/* teclado */
-#teclado{
-  background:#fff;border-radius:17px;padding:13px;border:2px solid var(--linea);
-  user-select:none;touch-action:manipulation;
-}
-.fila{display:flex;gap:5px;justify-content:center;margin-bottom:5px}
-.tecla{
-  flex:1;min-width:0;max-width:62px;height:50px;background:#fff;border:1.5px solid #ccd4e4;
-  border-bottom-width:4px;border-radius:8px;font-size:16px;font-weight:700;color:var(--tinta);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  transition:transform .05s,background .09s;position:relative;
-}
-.tecla .alt{display:block;font-size:11px;color:var(--gris);font-weight:600;line-height:1}
-.tecla.especial{flex:.6;max-width:46px;font-size:12px;color:var(--gris)}
-.tecla.ancha{flex:1.55;max-width:96px}
-.tecla.pulsada{transform:translateY(3px);border-bottom-width:1px}
-.tecla.next{background:var(--ambar);border-color:#e69a00;border-bottom-color:#e69a00;color:#fff;transform:translateY(2px)}
-.tecla.next .alt{color:rgba(255,255,255,.85)}
-.tecla.next2{background:#ffe9bd;border-color:var(--ambar)}
-.tecla.mal{background:var(--rojo);border-color:var(--rojo-d);color:#fff}
-.tecla.ok{background:var(--verde);border-color:#0f8f5b;color:#fff}
-.tecla.dead{border-color:var(--violeta);color:var(--violeta)}
-
-/* combo flotante */
-#combo-flotante{
-  position:fixed;top:44%;left:50%;transform:translate(-50%,-50%);
-  font-size:clamp(52px,12vw,104px);font-weight:800;color:var(--ambar);
-  pointer-events:none;opacity:0;text-shadow:0 5px 0 rgba(0,0,0,.09);z-index:60;
-}
-#combo-flotante.show{animation:sube .6s ease-out}
-@keyframes sube{
-  0%{opacity:0;transform:translate(-50%,-50%) scale(.4)}
-  30%{opacity:1;transform:translate(-50%,-50%) scale(1.15)}
-  100%{opacity:0;transform:translate(-50%,-160%) scale(1)}
-}
-#flash{
-  position:fixed;inset:0;background:var(--rojo);opacity:0;pointer-events:none;z-index:50;
-}
-#flash.on{animation:destello .3s}
-@keyframes destello{0%{opacity:.22}100%{opacity:0}}
-
-/* resultado */
-#resultado{
-  position:fixed;inset:0;background:rgba(22,34,58,.9);display:grid;place-items:center;
-  z-index:80;padding:20px;
-}
-.tarjeta{
-  background:#fff;border-radius:24px;padding:30px 34px;text-align:center;max-width:520px;width:100%;
-  animation:entra .35s cubic-bezier(.2,1.4,.5,1);
-}
-@keyframes entra{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}}
-.tarjeta .trofeo{font-size:64px;line-height:1}
-.tarjeta h2{font-size:31px;margin-bottom:5px}
-.tarjeta .detalle{font-family:'Fredoka',sans-serif;color:var(--gris);font-size:16px;margin-bottom:18px}
-.cuadros{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:19px}
-.caja{background:var(--fondo);border-radius:12px;padding:11px}
-.caja b{display:block;font-size:26px;font-weight:800;font-variant-numeric:tabular-nums}
-.caja small{font-family:'Fredoka',sans-serif;color:var(--gris);font-size:12px}
-.caja.gana b{color:var(--verde)} .caja.pierde b{color:var(--rojo)}
-.marcador{display:flex;justify-content:center;gap:9px;margin-bottom:18px}
-.marcador .lado{padding:6px 14px;border-radius:99px;color:#fff;font-size:14px;font-weight:700}
-.marcador .l1{background:var(--azul)} .marcador .l2{background:var(--rojo)}
-.marcador .empate{background:var(--gris)}
+@media (max-width:640px){.direccion{max-width:100%}}
 </style>
 </head>
 <body>
 
-<!-- ============ PORTADA ============ -->
-<div id="portada">
-  <div class="marca">⌨️ Misión Teclear</div>
-  <h1 class="titulo">Teclado <span>4.º</span></h1>
-  <p class="sub">Escuela de tecleo · Colegio de Cervantes</p>
-  <div class="niveles" id="listaNiveles"></div>
-  <div class="modos">
-    <button class="modo g2" data-modo="2">👥 Dos jugadores<small>Un teclado, a ver quién es más rápido</small></button>
-    <button class="modo" data-modo="1">🙂 Solo<small>Contra tu récord</small></button>
-  </div>
-  <p class="pie">Elige un nivel, luego cómo jugar.<br>Teclado español Latinoamérica · teclear, no combinaciones raras.</p>
+<div class="barra">
+  <div class="marca"><span>Á</span> Práctica de direcciones</div>
+  <button id="btnOcultar">Ocultar texto</button>
+  <button id="btnPantalla">Pantalla completa</button>
+  <button id="btnReiniciar">Reiniciar</button>
+  <div class="contador">Dirección <b id="cual">1</b> <span id="de"></span> · errores <b id="errores">0</b></div>
 </div>
 
-<!-- ============ JUEGO ============ -->
-<div id="juego" class="oculto">
-  <div class="barra">
-    <div class="nivel" id="etNivel">Nivel 1<small id="etNivelSub"></small></div>
-    <div class="crono" id="crono">0.0s</div>
-    <button class="btn" id="btnSalir">Salir</button>
-  </div>
-  <div class="objetivo" id="objetivo"></div>
-  <div class="jugadores" id="jugadores"></div>
-  <div id="teclado"></div>
+<div class="progreso"><i id="barra"></i></div>
+
+<div class="escena">
+  <div class="caption">Escribe la dirección con el teclado</div>
+  <div class="direccion" id="linea"></div>
+  <div class="marcador" id="marcador"></div>
 </div>
 
-<div id="combo-flotante"></div>
-<div id="flash"></div>
+<div class="pie">
+  <button class="primario" id="btnOtra">Otra dirección</button>
+</div>
 
-<!-- ============ RESULTADO ============ -->
-<div id="resultado" class="oculto">
-  <div class="tarjeta" id="tarjeta"></div>
+<div class="nota">
+  <kbd>´</kbd> + vocal = acentuada · <kbd>Shift</kbd> + <kbd>´</kbd> + <kbd>u</kbd> = <b>ü</b> ·
+  <kbd>Enter</kbd> pasa de dirección · <kbd>⌫</kbd> borra
 </div>
 
 <script>
 "use strict";
 
-/* ---------- DISPOSICIÓN FÍSICA: español latinoamericano ----------
-   Fila 1: | 1 2 3 4 5 6 7 8 9 0 ' ¿
-   Fila 2: q w e r t y u i o p ´ +
-   Fila 3: a s d f g h j k l ñ { }
-   Fila 4: < > z x c v b n m , . - _
-   Verificada contra xkeyboard-config symbols/latam.            */
-
-const FILAS = [
-  ["|","1","2","3","4","5","6","7","8","9","0","'","¿"],
-  ["q","w","e","r","t","y","u","i","o","p","´","+"],
-  ["a","s","d","f","g","h","j","k","l","ñ","{","}"],
-  ["<",">","z","x","c","v","b","n","m",",",".","-","_"]
+/* ==========================================================
+   Direcciones: se cruzan calles x numeros, asi hay miles de
+   combinaciones y no se repite nada en toda la clase.
+   ========================================================== */
+const CALLES = [
+  "Reforma","Juárez","Madero","Héroes","Insurgentes","Liberación",
+  "Constitución","Revolución","Cuauhtémoc","Altamira","Encino","Sabino",
+  "Fresno","Roble","Olmo","Ceiba","Abeto","Cedro","Álamo","Enebro",
+  "Praga","Hamburgo","Londres","París","Tokio","Berlín","Roma","Nápoles",
+  "Chapultepec","Xochimilco","Churubusco","Coyoacán","Tacubaya","Mixcoac",
+  "Iztacalco","Versalles","Atenas","Bélgica","Croacia","Suiza","Noruega",
+  "Durango","Zaragoza","Guanajuato","Morelia","Puebla","Oaxaca",
+  "Niños Héroes","Peña","Ocampo","Manteñilla","Cañada"
 ];
+const PREFIJOS = ["", "", "", "", "", "Av. ", "Av. ", "Calle ", "Sta. "];
+const NUMEROS = [1,2,3,4,5,7,8,9,10,12,14,15,16,18,20,21,24,25,27,30,32,35,
+  38,40,42,45,48,50,55,60,64,70,75,80,85,90,96,100,105,110,120,125,130,
+  140,150,160,175,180,190,200,210,220,240,250,260,280,300,320,350,400,450,500];
 
-const MAYUS = {
-  "|":"°","1":"!","2":"\"","3":"#","4":"$","5":"%","6":"&","7":"/","8":"(",
-  "9":")","0":"=","'":"?","¿":"¡",
-  "+":"*","´":"¨","{":"[","}":"]","<":">","-":"_","ñ":"Ñ",
-  ",":";",".":":"
-};
-for (const c of "abcdefghijklmnopqrstuvwxyz") MAYUS[c] = c.toUpperCase();
+const RONDA = 120;
 
-const VOCALES = "aeiou";
-
-/* ---------- NIVELES ---------- */
-const NIVELES = [
-  {
-    nombre: "Fila ancla",
-    sub: "donde descansan los dedos",
-    teclas: "asdfghjklñ",
-    palabras: ["ala","alas","dale","flan","flaca","gala","hacha","hadas","jaja",
-               "fallas","salsa","ala","las","sala","falla","flan","gasa"]
-  },
-  {
-    nombre: "Fila de arriba",
-    sub: "q w e r t y u i o p y los números",
-    teclas: "qwertyuiop0123456789",
-    palabras: ["perro","tipo","peso","queso","todo","tuyo","puerta","perro",
-               "ritmo","peso","quito","trigo","yoyo","risa","piña","torre",
-               "123","456","789","qwer","wert","tyui"]
-  },
-  {
-    nombre: "Fila de abajo",
-    sub: "z x c v b n m y los signos",
-    teclas: "zxcvbnm,.-",
-    palabras: ["vaca","coco","beso","nube","mano","mesa","virus","zapato",
-               "clave","verano","viento","bicho","coco","nido","mazo","comida",
-               "vaca","banana","zumo","mesa"]
-  },
-  {
-    nombre: "Mayúsculas",
-    sub: "con Shift — sin mover los dedos de su sitio",
-    teclas: "asdfghjklñqwertyuiopzxcvbnm",
-    palabras: ["Perro","Queso","Escuela","Mochila","Verano","Mesa","Puerta",
-               "Hola","Luz","Cacao","Nube","Zapato","Beso","Torta","Burbuja"]
-  },
-  {
-    nombre: "Acentos y signos",
-    sub: "el nivel difícil — tecla ´ y luego la vocal",
-    teclas: "asdfghjklñqwertyuiopzxcvbnm´¨",
-    palabras: ["canción","ángel","lápiz","música","corazón","español","México",
-               "árbol","único","página","símbolo","niño","año","España","pingüino",
-               "familia","médico","último","cántaro","rápido","ánimo","sábana"]
-  }
-];
-
-const KEY = "teclado4to_v1";
-const record = (() => {
-  try { return JSON.parse(localStorage.getItem(KEY)) || {}; }
-  catch { return {}; }
-})();
-const guardarRecord = () => {
-  try { localStorage.setItem(KEY, JSON.stringify(record)); } catch {}
-};
-
-/* ---------- AUDIO ---------- */
-let ctxAudio = null;
-function clic(mal) {
-  try {
-    if (!ctxAudio) ctxAudio = new (window.AudioContext || window.webkitAudioContext)();
-    const t = ctxAudio.currentTime;
-    const o = ctxAudio.createOscillator();
-    const g = ctxAudio.createGain();
-    o.type = mal ? "sawtooth" : "square";
-    o.frequency.setValueAtTime(mal ? 150 : 660, t);
-    if (!mal) o.frequency.exponentialRampToValueAtTime(990, t + 0.035);
-    g.gain.setValueAtTime(mal ? 0.09 : 0.05, t);
-    g.gain.exponentialRampToValueAtTime(0.0001, t + (mal ? 0.16 : 0.07));
-    o.connect(g).connect(ctxAudio.destination);
-    o.start(t); o.stop(t + 0.2);
-  } catch {}
-}
-
-/* ---------- PASOS: carácter → secuencia de teclas ---------- */
-function pasos(texto) {
-  const out = [];
-  for (const ch of texto) {
-    if ("áéíóú".includes(ch)) {
-      out.push({ dead: "´" });
-      out.push({ key: ch });
-    } else if ("ÁÉÍÓÚ".includes(ch)) {
-      out.push({ dead: "´" });
-      out.push({ key: ch.toLowerCase(), shift: true });
-    } else if (ch === "ü") {
-      out.push({ dead: "¨", shift: true });
-      out.push({ key: "u" });
-    } else if (ch === "Ü") {
-      out.push({ dead: "¨", shift: true });
-      out.push({ key: "u", shift: true });
-    } else if (ch === "¡") {
-      out.push({ key: "¿", shift: true });
-    } else if (ch === "Ñ") {
-      out.push({ key: "ñ", shift: true });
-    } else if (ch === "ñ") {
-      out.push({ key: "ñ" });
-    } else if (/[A-Z]/.test(ch)) {
-      out.push({ key: ch.toLowerCase(), shift: true });
-    } else {
-      out.push({ key: ch });
+function construirRonda(cuantas){
+  const todas = [];
+  for (const calle of CALLES){
+    for (const num of NUMEROS){
+      const pre = PREFIJOS[Math.floor(Math.random() * PREFIJOS.length)];
+      todas.push(pre + calle + " " + num);
     }
   }
-  return out;
-}
-
-function pasosDe(ch) {
-  if ("áéíóúÁÉÍÓÚüÜ".includes(ch)) return 2;
-  return 1;
-}
-
-/* ---------- ESTADO ---------- */
-const E = {
-  nivel: 0, modo: 2, jugadores: [], palabras: [], iPalabra: 0,
-  ini: 0, crono: null, shift: false, deadPend: null, running: false
-};
-
-const $ = (id) => document.getElementById(id);
-const letras = (n) => String.fromCharCode(97 + n);
-
-/* ---------- PORTADA ---------- */
-function pintarPortada() {
-  $("listaNiveles").innerHTML = NIVELES.map((n, i) => {
-    const r = record["n" + i];
-    return `<div class="nv" data-n="${i}">
-      <span class="num">${i + 1}</span>
-      <b>${n.nombre}</b>
-      <small>${n.sub}</small>
-      ${r ? `<div class="record">★ récord ${r.toFixed(1)}s</div>` : ""}
-    </div>`;
-  }).join("");
-  marcarNivel();
-  document.querySelectorAll(".nv").forEach(el =>
-    el.onclick = () => { E.nivel = +el.dataset.n; marcarNivel(); }
-  );
-}
-
-function marcarNivel() {
-  document.querySelectorAll(".nv").forEach(el =>
-    el.classList.toggle("sel", +el.dataset.n === E.nivel)
-  );
-}
-
-/* ---------- TECLADO ---------- */
-function pintarTeclado() {
-  const cont = $("teclado");
-  cont.innerHTML = FILAS.map((fila, i) => {
-    let teclas = fila.map(c => {
-      const alt = MAYUS[c] || "";
-      let extra = "";
-      if (c === "´" || c === "¨") extra = " dead";
-      return `<button class="tecla${extra}" data-k="${c}">
-        <span>${alt ? esc(alt) : ""}</span>${esc(c)}</button>`;
-    }).join("");
-    if (i === 0) teclas = `<button class="tecla especial" data-k="Escape">esc</button>` + teclas;
-    if (i === 3) teclas = teclas + `<button class="tecla especial" data-k="Enter">⏎</button>`;
-    return `<div class="fila">${teclas}</div>`;
-  }).join("");
-  cont.querySelectorAll(".tecla").forEach(b => {
-    b.addEventListener("pointerdown", ev => {
-      ev.preventDefault();
-      toqueVisual(b.dataset.k);
-    });
-  });
-}
-const esc = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-
-const BASE_ACENTO = { "á":"a","é":"e","í":"i","ó":"o","ú":"u","ü":"u",
-                      "Á":"a","É":"e","Í":"i","Ó":"o","Ú":"u","Ü":"u" };
-
-function tocarTecla(c) {
-  if (!c) return;
-  let el = document.querySelector(`.tecla[data-k="${CSS.escape(c)}"]`);
-  if (!el) {
-    for (const b of document.querySelectorAll(".tecla")) {
-      if (MAYUS[b.dataset.k] === c) { el = b; break; }
-    }
-  }
-  // 'é' -> ilumina 'e' (el carácter acentuado no es una tecla física)
-  if (!el && BASE_ACENTO[c]) {
-    el = document.querySelector(`.tecla[data-k="${BASE_ACENTO[c]}"]`);
-  }
-  if (!el) return;
-  el.classList.add("pulsada");
-  setTimeout(() => el.classList.remove("pulsada"), 110);
-}
-
-function iluminar() {
-  document.querySelectorAll(".tecla").forEach(k =>
-    k.classList.remove("next", "next2", "mal", "ok")
-  );
-  E.jugadores.forEach(j => {
-    const s = pasoActual(j);
-    if (!s) return;
-    let c = s.dead || s.key;
-    if (s.shift && s.dead) c = "¨";
-    const sel = `.tecla[data-k="${CSS.escape(c)}"]`;
-    document.querySelectorAll(sel).forEach(el => {
-      if (j === E.jugadores[0]) el.classList.add("next");
-      else el.classList.add("next2");
-    });
-    if (s.shift) {
-      document.querySelectorAll(".tecla").forEach(el => {
-        const b = el.dataset.k;
-        if ((MAYUS[b] || "") === c.toUpperCase() && b !== c)
-          el.classList.add(j === E.jugadores[0] ? "next" : "next2");
-      });
-    }
-  });
-}
-
-function pasoActual(j) {
-  const pal = E.palabras[j.iPalabra];
-  if (pal === undefined) return null;
-  const ps = pasos(pal);
-  return ps[j.iTecla] || null;
-}
-
-/* ---------- ARRANQUE ---------- */
-function iniciar(nivel, modo) {
-  E.nivel = nivel;
-  E.modo = modo;
-  E.shift = false;
-  E.deadPend = null;
-  const cant = modo === 2 ? 3 : 5;
-  const fuente = NIVELES[nivel].palabras.slice();
-  for (let i = fuente.length - 1; i > 0; i--) {
+  for (let i = todas.length - 1; i > 0; i--){
     const j = Math.floor(Math.random() * (i + 1));
-    [fuente[i], fuente[j]] = [fuente[j], fuente[i]];
+    const t = todas[i]; todas[i] = todas[j]; todas[j] = t;
   }
-  E.palabras = fuente.slice(0, cant);
-  E.jugadores = [];
-  for (let i = 0; i < modo; i++)
-    E.jugadores.push({ i: i, iPalabra: 0, iTecla: 0, ok: 0, fallos: 0, combo: 0, maxCombo: 0 });
-
-  $("portada").classList.add("oculto");
-  $("resultado").classList.add("oculto");
-  $("juego").classList.remove("oculto");
-  $("etNivel").childNodes[0].nodeValue = "Nivel " + (nivel + 1) + " ";
-  $("etNivelSub").textContent = NIVELES[nivel].nombre;
-
-  pintarTeclado();
-  pintarJugadores();
-  pintarObjetivo();
-
-  E.ini = performance.now();
-  E.crono = setInterval(() => {
-    $("crono").textContent = ((performance.now() - E.ini) / 1000).toFixed(1) + "s";
-  }, 100);
-  E.running = true;
-  iluminar();
+  return todas.slice(0, cuantas);
 }
 
-function pintarJugadores() {
-  $("jugadores").className = "jugadores " + (E.modo === 2 ? "dos" : "uno");
-  $("jugadores").innerHTML = E.jugadores.map(j => `
-    <div class="jug p${j.i + 1}">
-      <div class="fila">
-        <span class="nom">${E.modo === 2 ? (j.i === 0 ? "🔵 Azul" : "🔴 Rojo") : "🟣 Tú"}</span>
-        <span class="combo" id="combo${j.i}"></span>
-        <span class="stats" id="stats${j.i}"></span>
-      </div>
-      <div class="barra-p"><i id="prog${j.i}"></i></div>
-    </div>`).join("");
-  E.jugadores.forEach(pintarStats);
-}
+/* ==========================================================
+   Estado
+   ========================================================== */
+let cola = construirRonda(RONDA);
+let indice = 0;        // cuantas direcciones ya se tearon
+let actual = "";
+let pos = 0;           // cursor sobre la direccion
+let errores = 0;
+let bloqueado = false;  // durante el aviso de "Bien" no se teclea
+let reloj = null;
 
-function pintarStats(j) {
-  const s = $("stats" + j.i);
-  if (!s) return;
-  s.textContent = `${j.ok} bien · ${j.fallos} err`;
-  $("prog" + j.i).style.width =
-    (j.iTecla / pasos(E.palabras[j.iPalabra]).length * 100) + "%";
-  const c = $("combo" + j.i);
-  if (j.combo >= 3) {
-    c.textContent = "×" + j.combo;
-    c.classList.add("on");
-    c.style.animation = "none";
-    void c.offsetWidth;
-    c.style.animation = "";
-  } else c.classList.remove("on");
-}
+const $ = id => document.getElementById(id);
+const elLinea = $("linea"), elCual = $("cual"), elDe = $("de"),
+      elErrores = $("errores"), elBarra = $("barra"), elMarcador = $("marcador");
 
-function pintarObjetivo() {
-  const j = E.jugadores[0];
-  let html = "";
-  for (let p = 0; p < E.palabras.length; p++) {
-    const est = p < j.iPalabra ? "hecha" : p === j.iPalabra ? "" : "";
-    html += `<span class="f ${est}">${esc(E.palabras[p])}</span>`;
+/* ==========================================================
+   Dibujar
+   ========================================================== */
+function pintar(){
+  elLinea.textContent = "";
+  const frag = document.createDocumentFragment();
+  for (let i = 0; i < actual.length; i++){
+    const s = document.createElement("span");
+    s.className = "car " + (i < pos ? "ok" : i === pos ? "actual" : "pend");
+    s.textContent = actual[i];
+    frag.appendChild(s);
   }
-  html += " ";
-  const pal = E.palabras[j.iPalabra] || "";
-  const ps = pasos(pal);
-  let i = 0;
-  for (const ch of pal) {
-    const n = pasosDe(ch);
-    if (i < j.iTecla) html += `<span class="f hecha">${esc(ch)}</span>`;
-    else if (i === j.iTecla) html += `<span class="f actual">${esc(ch)}</span>`;
-    i += n;
-  }
-  $("objetivo").innerHTML = html;
+  elLinea.appendChild(frag);
+  elCual.textContent = Math.min(indice + 1, RONDA);
+  elDe.textContent = "de " + RONDA;
+  elErrores.textContent = errores;
+  elBarra.style.width = (pos / actual.length * 100) + "%";
 }
 
-/* ---------- TECLADO FÍSICO ---------- */
-addEventListener("keydown", ev => {
-  if (!E.running) return;
-  const k = ev.key;
-  if (k === "Shift") { E.shift = true; return; }
+function aviso(texto, clase){
+  elMarcador.textContent = texto;
+  elMarcador.className = "marcador" + (texto ? " visible " + clase : "");
+}
 
-  if (k.length !== 1 && k !== "Dead") {
-    if (k !== "Escape" && k !== "Enter") return;
+/* ==========================================================
+   Avanzar
+   ========================================================== */
+function soltar(){
+  clearTimeout(reloj);
+  reloj = null;
+  bloqueado = false;
+}
+
+function siguiente(){
+  soltar();
+  aviso("", "");
+  if (indice >= cola.length){
+    cola = construirRonda(RONDA);
+    indice = 0;
+  }
+  actual = cola[indice];
+  indice++;
+  pos = 0;
+  pintar();
+}
+
+function completar(){
+  bloqueado = true;
+  aviso("¡Bien!", "");
+  elBarra.style.width = "100%";
+  reloj = setTimeout(siguiente, 850);
+}
+
+/* ==========================================================
+   Teclado
+   ========================================================== */
+window.addEventListener("keydown", ev => {
+  if (ev.ctrlKey || ev.metaKey || ev.altKey) return;
+  if (["Shift","Control","Alt","Meta","CapsLock"].includes(ev.key)) return;
+  if (bloqueado) return;
+
+  if (ev.key === "Enter"){ ev.preventDefault(); siguiente(); return; }
+  if (ev.key === "Backspace"){
     ev.preventDefault();
-    toqueVisual(k);
+    if (pos > 0){ pos--; pintar(); }
     return;
   }
+  if (ev.key === "Tab" || ev.key === "Escape") return;
+  if ([...ev.key].length !== 1) return;
   ev.preventDefault();
-  toqueVisual(k);
-});
 
-addEventListener("keyup", ev => { if (ev.key === "Shift") E.shift = false; });
-
-function toqueVisual(char) {
-  const c = char === "Dead" ? (E.shift ? "¨" : "´") : char;
-  tocarTecla(c);
-
-  if (!E.running) return;
-
-  const candidatos = E.jugadores
-    .map(j => ({ j, s: pasoActual(j) }))
-    .filter(o => o.s && coincide(o.s, c));
-
-  if (!candidatos.length) { fallar(); return; }
-
-  let qui = candidatos[0].j;
-  if (candidatos.length === 2) {
-    const [a, b] = candidatos;
-    qui = masAdelante(a.j, b.j) ? a.j : b.j;
-  }
-  avanzar(qui);
-}
-
-function masAdelante(a, b) {
-  if (a.iPalabra !== b.iPalabra) return a.iPalabra > b.iPalabra;
-  if (a.iTecla !== b.iTecla) return a.iTecla > b.iTecla;
-  return a.ok >= b.ok;
-}
-
-function coincide(s, c) {
-  if (s.dead) return c === (s.shift ? "¨" : "´");
-  if (s.shift) return c === MAYUS[s.key] || c === s.key.toUpperCase();
-  return c === s.key;
-}
-
-function avanzar(j) {
-  j.ok++;
-  j.combo++;
-  if (j.combo > j.maxCombo) j.maxCombo = j.combo;
-  clic(false);
-
-  if (j.combo >= 5 && j.combo % 5 === 0) {
-    const f = $("combo-flotante");
-    f.textContent = "×" + j.combo;
-    f.classList.remove("show");
-    void f.offsetWidth;
-    f.classList.add("show");
-  }
-
-  j.iTecla++;
-  const pal = E.palabras[j.iPalabra];
-  if (j.iTecla >= pasos(pal).length) {
-    j.iPalabra++;
-    j.iTecla = 0;
-    pintarObjetivo();
-    if (j.iPalabra >= E.palabras.length) { terminar(j); return; }
-  }
-  pintarStats(j);
-  pintarObjetivo();
-  iluminar();
-}
-
-function fallar() {
-  clic(true);
-  const fl = $("flash");
-  fl.classList.remove("on"); void fl.offsetWidth; fl.classList.add("on");
-  E.jugadores.forEach(j => {
-    j.combo = 0;
-    if (E.modo === 1) j.fallos++;
-  });
-  E.jugadores.forEach(pintarStats);
-}
-
-/* ---------- FIN ---------- */
-function terminar(ganador) {
-  E.running = false;
-  clearInterval(E.crono);
-  const seg = (performance.now() - E.ini) / 1000;
-  const clave = "n" + E.nivel;
-  const previo = record[clave];
-  const nuevo = previo === undefined || seg < previo;
-  if (nuevo) { record[clave] = Math.round(seg * 10) / 10; guardarRecord(); }
-
-  const dos = E.modo === 2;
-  const otro = dos ? E.jugadores.find(j => j !== ganador) : null;
-  let titulo, detalle, cab;
-  if (!dos) {
-    cab = "🎉";
-    titulo = "¡Nivel " + (E.nivel + 1) + " completado!";
-    detalle = nuevo ? "¡Nuevo récord personal!" : "Récord: " + previo.toFixed(1) + "s";
+  if (ev.key === actual[pos]){
+    pos++;
+    if (pos >= actual.length){ completar(); return; }
+    pintar();
   } else {
-    const faltan = E.palabras.length - otro.iPalabra;
-    cab = ganador.i === 0 ? "🔵" : "🔴";
-    titulo = (ganador.i === 0 ? "¡Gana Azul" : "¡Gana Rojo") + "!";
-    detalle = "Le faltaron " + faltan + (faltan === 1 ? " palabra" : " palabras");
+    errores++;
+    pintar();
+    elErrores.textContent = errores;
+    const nodo = elLinea.children[pos];
+    if (nodo){
+      nodo.classList.add("error");
+      setTimeout(() => nodo.classList.remove("error"), 420);
+    }
+    aviso("Casi", "fallo");
+    setTimeout(() => { if (!bloqueado) aviso("", ""); }, 700);
   }
-
-  $("tarjeta").innerHTML = `
-    <div class="trofeo">${cab}</div>
-    <h2>${titulo}</h2>
-    <div class="detalle">${detalle}</div>
-    ${dos ? `<div class="marcador">
-      <span class="lado l1">Azul ${ganador.i === 0 ? seg.toFixed(1) : "—"}s</span>
-      <span class="lado l2">Rojo ${ganador.i === 1 ? seg.toFixed(1) : "—"}s</span>
-    </div>` : ""}
-    <div class="cuadros">
-      <div class="caja"><b>${seg.toFixed(1)}s</b><small>tiempo</small></div>
-      <div class="caja"><b>${ganador.maxCombo}</b><small>mejor combo</small></div>
-      <div class="caja"><b>${ganador.ok}</b><small>teclas bien</small></div>
-      <div class="caja"><b>${ganador.fallos}</b><small>errores</small></div>
-    </div>
-    <button class="btn" id="btnOtra" style="background:var(--violeta);margin-right:9px">Otra vez</button>
-    <button class="btn" id="btnVolver">Elegir nivel</button>`;
-
-  $("resultado").classList.remove("oculto");
-  $("btnOtra").onclick = () => iniciar(E.nivel, E.modo);
-  $("btnVolver").onclick = () => {
-    $("resultado").classList.add("oculto");
-    $("juego").classList.add("oculto");
-    pintarPortada();
-  };
-}
-
-/* ---------- BOTONES ---------- */
-document.querySelectorAll(".modo").forEach(b => {
-  b.onclick = () => iniciar(E.nivel, +b.dataset.modo);
 });
-$("btnSalir").onclick = () => {
-  E.running = false;
-  clearInterval(E.crono);
-  $("juego").classList.add("oculto");
-  $("resultado").classList.add("oculto");
-  pintarPortada();
+
+/* ==========================================================
+   Botones
+   ========================================================== */
+$("btnOtra").onclick = siguiente;
+$("btnReiniciar").onclick = () => {
+  cola = construirRonda(RONDA);
+  indice = 0;
+  errores = 0;
+  siguiente();
+};
+$("btnOcultar").onclick = function(){
+  const tapado = elLinea.style.visibility === "hidden";
+  elLinea.style.visibility = tapado ? "" : "hidden";
+  this.textContent = tapado ? "Ocultar texto" : "Mostrar texto";
+};
+$("btnPantalla").onclick = () => {
+  if (document.fullscreenElement) document.exitFullscreen();
+  else document.documentElement.requestFullscreen();
 };
 
-pintarPortada();
+siguiente();
 </script>
 </body>
 </html>
