@@ -259,6 +259,19 @@ const CON_SHIFT = {
   ",":";", ".":":", "-":"_"
 };
 
+/* El acento es TECLA MUERTA: al pulsarla el navegador no entrega carácter,
+   sino "Dead" (o el acento suelto), y el carácter ya compuesto ("é") llega
+   en la pulsación siguiente. Guardamos el acento y componemos al recibir la vocal. */
+const ACENTOS = "´¨^`~";
+const COMPUESTAS = {
+  "´a":"á","´e":"é","´i":"í","´o":"ó","´u":"ú","´y":"ý",
+  "¨a":"ä","¨e":"ë","¨i":"ï","¨o":"ö","¨u":"ü",
+  "^a":"â","^e":"ê","^i":"î","^o":"ô","^u":"û",
+  "`a":"à","`e":"è","`i":"ì","`o":"ò","`u":"ù",
+  "~a":"ã","~n":"ñ"
+};
+let acentoPendiente = null;   // null = ninguno, "" = tecla muerta sin identificar
+
 function detectarSO(){
   const datos = (navigator.userAgentData && navigator.userAgentData.platform) || "";
   const s = (datos + " " + (navigator.platform || "") + " " + (navigator.userAgent || "")).toLowerCase();
@@ -387,6 +400,7 @@ function mostrar(){
   actual = cola[indice];
   pos = 0;
   bloqueado = false;
+  acentoPendiente = null;
   pintar();
 }
 
@@ -415,11 +429,13 @@ function teclear(ch){
   if (bloqueado) return;
 
   if (ch === "Enter"){
+    acentoPendiente = null;
     indice++;
     if (indice >= cola.length) nuevaRonda(); else mostrar();
     return;
   }
   if (ch === "Backspace"){
+    acentoPendiente = null;
     if (pos > 0){
       pos--;
       const letras = document.querySelectorAll(".car");
@@ -430,6 +446,19 @@ function teclear(ch){
     return;
   }
   if (ch.length !== 1) return;
+
+  /* Hay un acento pendiente: se compone con esta vocal.
+     - Si el SO ya trajo el carácter compuesto (Option+e → "é"), se usa tal cual.
+     - Si trajo la vocal suelta, se compone aquí con el acento guardado. */
+  if (acentoPendiente !== null){
+    const base = acentoPendiente;
+    acentoPendiente = null;
+    if (base){
+      const vocal = ch.toLowerCase();
+      const compuesta = COMPUESTAS[base + vocal];
+      if (compuesta) ch = (/[A-ZÁÉÍÓÚÑÜ]/.test(ch)) ? compuesta.toUpperCase() : compuesta;
+    }
+  }
 
   pulsarEnTeclado(ch);
 
@@ -456,9 +485,25 @@ function teclear(ch){
 }
 
 document.addEventListener("keydown", ev => {
-  if (ev.ctrlKey || ev.metaKey || ev.altKey) return;
+  /* En Mac, Option+vocal entrega el carácter YA compuesto (é, ñ, ü…).
+     Se acepta como atajo, pero solo si no hay un acento pendiente. */
+  if (ev.altKey){
+    if (ev.key.length === 1 && acentoPendiente === null) teclear(ev.key);
+    return;
+  }
+  if (ev.ctrlKey || ev.metaKey) return;
   ev.preventDefault();
   let k = ev.key;
+
+  /* Tecla muerta: se guarda el acento y se espera la vocal.
+     "Dead" = el navegador no identifica cuál es → "" (se compone igual). */
+  if (k === "Dead"){ acentoPendiente = ""; return; }
+  if (k.length === 1 && ACENTOS.includes(k)){
+    acentoPendiente = k;
+    pulsarEnTeclado(k);
+    return;
+  }
+
   /* algunos navegadores entregan la letra en minúscula aun con Shift:
      se acepta también la versión en mayúscula */
   if (ev.shiftKey && k.length === 1) k = k.toUpperCase();

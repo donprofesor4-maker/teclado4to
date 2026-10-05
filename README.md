@@ -80,6 +80,23 @@ Mac:      fn  Ctrl  ⌥  ⌘  [espacio]  ⌘  ⌥  Ctrl
 
 `⊞` es el logo de Windows (las cuatro ventanitas).
 
+## El acento: por qué a veces «no lo reconoce»
+
+El acento es una **tecla muerta**: al pulsarla no sale ningún carácter, y el
+carácter acentuado aparece en la pulsación *siguiente*. Por eso el programa
+recuerda qué acento se apretó y lo compone con la vocal que viene después.
+
+Funciona en los tres estilos de teclear el acento:
+
+| Cómo lo teclea el alumno | Pasos que ve el programa |
+|---|---|
+| **Estándar (Windows/Mac)** | `Dead` → `é` ya compuesta |
+| **Acento suelto** | `´` → `e` (la compone el programa) |
+| **Atajo de Mac** | `Option`+`e` → `é` |
+
+Igual para la `ñ` (`~` + `n`), la `ü` (`Shift` `¨` + `u`) y las mayúsculas
+acentuadas (`Shift` `´` + `a` → `Á`).
+
 ## Controles
 
 | Tecla | Qué hace |
