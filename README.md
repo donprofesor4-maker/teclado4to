@@ -5,13 +5,50 @@ direcciones, una tras otra, y no se repiten en toda la sesión.
 
 Un solo archivo: [`index.html`](index.html). Sin instalación ni servidor.
 
-## Cómo se usa
+## Qué aparece en pantalla
 
-1. Abre `index.html` en Chrome o Edge.
-2. Proyecta. Pulsa **Pantalla completa** si hace falta.
+- Una **dirección grande** (72 px) que el alumno teclea.
+- Debajo, el **teclado completo**, que se ilumina conforme el alumno teclea:
+  verde la tecla que acaba de pulsar, azul la que toca ahora.
+- Arriba, el número de dirección y los errores acumulados.
 
-El alumno teclea la dirección que aparece. Al terminarla sale otra distinta.
-Cuando se acaba la ronda de 120, se baraja una nueva con otras direcciones.
+## Direcciones
+
+Se mezclan dos tipos, como pidió el maestro:
+
+| Tipo | Ejemplos |
+|------|----------|
+| Calles | `Av. París 60` · `Niños Héroes 15` · `Constitución 130` |
+| Páginas web | `https://www.colegio.edu.mx` · `https://videos.com.mx/aulas` |
+
+Las de internet siempre empiezan con **`https://`** y van seguidas de un dominio
+**ficticio pero verosímil** (`.mx`, `.com`, `.edu.mx`, `.gob.mx`) y, a veces, una
+ruta corta. Miden entre 6 y 30 caracteres, promedio 17, para que no se haga
+eterno en 4.º de primaria.
+
+Cada ronda son 120 direcciones mezcladas y barajadas: **no se repite ninguna**
+durante la sesión. Las listas están en el `<script>`:
+
+| Arreglo | Qué es |
+|---------|--------|
+| `CALLES` | nombres de calle (con acentos y `ñ`) |
+| `PREFIJOS` | `Av.`, `Calle`, `Sta.` o nada |
+| `NUMEROS` | números de casa |
+| `DOMINIOS` | dominios ficticios |
+| `RUTAS` | sufijos de la URL (`/2026`, `/deportes`, …) |
+
+## Teclado: Windows o Mac
+
+Detecta solo si el equipo es **Windows** o **Mac** y dibuja el layout latino
+correspondiente. La diferencia real entre ambos está en la tercera fila:
+
+```
+Windows:  a s d f g h j k l ñ ' \
+Mac:      a s d f g h j k l ñ '
+```
+
+El distintivo azul de la barra superior dice cuál está puesto. **Si te equivoca**
+—porque usas teclado Mac en una PC, por ejemplo— tócalo y alterna entre los dos.
 
 ## Controles
 
@@ -21,36 +58,31 @@ Cuando se acaba la ronda de 120, se baraja una nueva con otras direcciones.
 | `Enter` | pasar a la siguiente dirección |
 | `⌫` | borrar un caracter |
 
+## Botones
+
+- **Ocultar texto** — difumina la dirección. Útil cuando el maestro la dicta.
+- **Ocultar teclado** — quita el teclado simolesta al proyectar.
+- **Pantalla completa.**
+- **Reiniciar** — baraja otra ronda y pone los errores en cero.
+- **Otra dirección** — salta a la siguiente.
+
 ## Qué practica
 
 - **Acentos:** `´` + vocal → `á é í ó ú`. Para la `ü`: `Shift` + `´` + `u`.
-- **Mayúsculas**, números, punto (`.`) y espacios.
+- **Mayúsculas**, números, punto (`.`), dos puntos (`:`) y barra (`/`).
 - **`ñ`** en nombres como *Niños Héroes* o *Peña*.
-- Signs and prefixes: `Av.`, `Calle`, `Sta.`
+- Signs y prefijos: `Av.`, `Calle`, `Sta.`
 
-El comparador usa `KeyboardEvent.key`, o sea el **carácter ya compuesto**, por
-lo que funciona con cualquier distribución de teclado: no importa qué tecla
-física presses.
-
-## Botones
-
-- **Ocultar texto** — esconde la dirección. Útil cuando el maestro la dicta o
-  cuando se quiereDictado.
-- **Pantalla completa.**
-- **Reiniciar** — baraja de nuevo y pone los errores en cero.
-
-En la barra superior van el número de dirección y los errores acumulados, para
-que el maestro vea el avance de un vistazo.
+El comparador usa `KeyboardEvent.key`, o sea el **carácter ya compuesto**, así
+que funciona con cualquier distribución de teclado: no importa qué tecla física
+se pulse. Cuando la tecla es incorrecta, el carácter se marca en rojo y **no
+avanza** — hay que acertarlo.
 
 ## Para el maestro
 
-- Las direcciones se cruzan entre calles y números: hay miles de combinaciones
-  posibles, así que nunca se repite la misma.
-- No se guarda nada: ni cookies, ni `localStorage`, ni cuentas. No sale nada a
-  internet. Los récords viven solo en la pantalla.
-- Las tipografías vienen de Google Fonts. Si el aula no tiene internet, el juego
-  funciona igual con la tipografía del sistema.
-- Para cambiar o agregar calles, edita el arreglo `CALLES` dentro del `<script>`.
-  Los números están en `NUMEROS` y los prefijos en `PREFIJOS`.
-- Las direcciones duran entre 9 y 18 caracteres, que es lo cómodo para 4.º de
-  primaria sin que se haga eterno.
+- No se guarda nada: ni cookies, ni `localStorage`, ni cuentas. Los contadores
+  viven solo en la pantalla.
+- Las tipografías vienen de Google Fonts; sin internet funciona igual con la del
+  sistema.
+- Funciona en Chrome, Edge, Firefox y Brave, enputer y proyector. Probado de
+  1366×768 a 2560×1440 sin desbordes.
